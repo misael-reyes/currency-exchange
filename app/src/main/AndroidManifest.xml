@@ -10,8 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CurrencyExchangeApp">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".ui.home.HomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.splash.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.App.Starting"> <!-- asignamos el tema del splash screen. -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
