@@ -6,6 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_home"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+
+        <Switch
+            android:id="@+id/switch_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </androidx.appcompat.widget.Toolbar>
+
 
     <TextView
         android:id="@+id/tv_pais1"
@@ -16,7 +41,7 @@
         android:text="MXN"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_home"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -28,7 +53,7 @@
         android:text="USA"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_home"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
@@ -40,7 +65,7 @@
         android:src="@drawable/ic_compare_arrows"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_home"
         app:tint="@color/black"
         tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
 
