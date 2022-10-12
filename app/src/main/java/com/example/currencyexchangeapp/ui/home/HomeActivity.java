@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,10 @@ public class HomeActivity extends AppCompatActivity {
     // esto es para el viewBinding
     private ActivityHomeBinding binding;
 
+    // atributos para el archivo sharedpreference
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,62 +38,52 @@ public class HomeActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        // iniciamos las configuraciones
+
+        initConfiguration();
+        initListeners();
+    }
+
+    private void initConfiguration() {
         // configuramos el toolbar como el actionbar
         Toolbar toolbar = binding.toolbarHome;
         setSupportActionBar(toolbar);
 
+        // iniciamos el preference
+        sp = getSharedPreferences("Theme_configuration", Context.MODE_PRIVATE);
+        editor = sp.edit();
+
+        // colocamos el tema
+        setDayNight();
+    }
+
+    private void initListeners() {
         binding.switchTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (binding.switchTheme.isChecked())
-                    setDayNight(0);
-                else
-                    setDayNight(1);
+                if (binding.switchTheme.isChecked()) updateTheme(0);
+                else updateTheme(1);
             }
         });
-
     }
 
-    public void setDayNight(int theme){
-        //SharedPreferences sp = getSharedPreferences("SP", this.MODE_PRIVATE);
-        //int theme = sp.getInt("Theme", 1);
-        if(theme==0){
-            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-        else{
-            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    private void updateTheme(int num_theme) {
+        editor.putInt("Theme", num_theme);
+        editor.apply();
+        setDayNight();
+    }
+
+    private void setDayNight() {
+        // necesitamos obtener la configuracion en un archivo clave-valor
+
+        int theme = sp.getInt("Theme", 1);
+
+        if(theme == 0) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES); // dark
+            binding.switchTheme.setChecked(true);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO); // light
+            binding.switchTheme.setChecked(false);
         }
     }
-/*
-    // metodo para mostrar el menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_theme, menu);
-        return true;
-    }*/
-
-
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        /**
-//        int id = item.getItemId();
-//        if (id == R.id.item_theme) {
-//            setDayNight(0);
-//        } else {
-//            setDayNight(1);
-//        }
-//        return super.onOptionsItemSelected(item);
-//         **/
-//        System.out.println("si entro en el metodo");
-//        switch (item.getItemId()) {
-//            case R.id.switch_theme:
-//                System.out.println("hola perrin, si entro");
-//                if (item.isChecked()) setDayNight(0);
-//                else setDayNight(1);
-//                return true;
-//            default:
-//                return false;
-//        }
-//    }
-
-
 }
