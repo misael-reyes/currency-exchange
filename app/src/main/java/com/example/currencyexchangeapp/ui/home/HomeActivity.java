@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import androidx.appcompat.widget.Toolbar;
 
@@ -47,6 +48,7 @@ public class HomeActivity extends AppCompatActivity {
     private void initConfiguration() {
         // configuramos el toolbar como el actionbar
         Toolbar toolbar = binding.toolbarHome;
+        toolbar.setTitle("App Converter");
         setSupportActionBar(toolbar);
 
         // iniciamos el preference

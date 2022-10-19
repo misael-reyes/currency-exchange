@@ -6,76 +6,123 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_home"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Switch
-            android:id="@+id/switch_theme"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_home"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            tools:ignore="MissingConstraints">
+
+            <Switch
+                android:id="@+id/switch_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_dark_mode" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingVertical="25dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pais1"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MXN"
+                android:textSize="24sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_arrows"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:contentDescription="@string/app_name"
+                app:icon="@drawable/ic_compare_arrows"
+                app:iconGravity="textEnd"
+                app:iconSize="40dp"
+                app:iconTint="?attr/colorOnSecondary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pais2"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USA"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_dark_mode"
-            android:layout_gravity="end"
-            android:contentDescription="@string/app_name" />
-    </androidx.appcompat.widget.Toolbar>
+            android:orientation="horizontal"
+            android:paddingVertical="25dp"
+            android:gravity="center">
 
+            <TextView
+                android:id="@+id/tv_valor1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_textview"
+                android:text="$ 709.00"
+                android:textAlignment="center"
+                android:layout_marginEnd="30dp"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_pais1" />
 
-    <TextView
-        android:id="@+id/tv_pais1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:text="MXN"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_home"
-        tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/tv_valor2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_textview"
+                android:text="$ 709.00"
+                android:layout_marginStart="30dp"
+                android:textAlignment="center"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_pais2" />
 
-    <TextView
-        android:id="@+id/tv_pais2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:text="USA"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_home"
-        tools:ignore="MissingConstraints" />
+        </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_compare_arrows"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_home"
-        app:tint="@color/black"
-        tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="15dp"
+            android:paddingHorizontal="2dp"
+            android:background="@drawable/background_textview">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/currency_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_currency"/>
+        </FrameLayout>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
