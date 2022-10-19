@@ -87,7 +87,7 @@
                 android:background="@drawable/background_textview"
                 android:text="$ 709.00"
                 android:textAlignment="center"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="35dp"
                 android:textColor="?attr/colorOnSecondary"
                 android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_textview"
                 android:text="$ 709.00"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="35dp"
                 android:textAlignment="center"
                 android:textColor="?attr/colorOnSecondary"
                 android:textSize="25sp"
@@ -111,9 +111,10 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="15dp"
-            android:paddingHorizontal="2dp"
-            android:background="@drawable/background_textview">
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="15dp"
+            android:paddingVertical="10dp"
+            android:background="@drawable/background_recycler">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/currency_recycler_view"
