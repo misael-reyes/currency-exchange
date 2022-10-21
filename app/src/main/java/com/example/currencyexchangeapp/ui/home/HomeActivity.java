@@ -17,6 +17,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.currencyexchangeapp.R;
 import com.example.currencyexchangeapp.databinding.ActivityHomeBinding;
@@ -30,6 +31,9 @@ public class HomeActivity extends AppCompatActivity {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
 
+    // viewmodel
+    HomeViewModel viewModel;
+
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         // iniciamos las configuraciones
 
         initConfiguration();
+        initObserver();
         initListeners();
     }
 
@@ -55,6 +60,9 @@ public class HomeActivity extends AppCompatActivity {
         sp = getSharedPreferences("Theme_configuration", Context.MODE_PRIVATE);
         editor = sp.edit();
 
+        // inicializamos el viewmodel
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
         // colocamos el tema
         setDayNight();
     }
@@ -66,6 +74,20 @@ public class HomeActivity extends AppCompatActivity {
                 if (binding.switchTheme.isChecked()) updateTheme(0);
                 else updateTheme(1);
             }
+        });
+
+        // example
+        binding.btnPais1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.agregar();
+            }
+        });
+    }
+
+    private void initObserver() {
+        viewModel.getMausan().observe(this, contador -> {
+            Toast.makeText(HomeActivity.this, "el contador esta en "+contador, Toast.LENGTH_SHORT).show();
         });
     }
 
