@@ -21,6 +21,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.currencyexchangeapp.R;
 import com.example.currencyexchangeapp.databinding.ActivityHomeBinding;
+import com.mynameismidori.currencypicker.CurrencyPicker;
+import com.mynameismidori.currencypicker.CurrencyPickerListener;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -80,7 +82,15 @@ public class HomeActivity extends AppCompatActivity {
         binding.btnPais1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.agregar();
+                //viewModel.agregar();
+                CurrencyPicker picker = CurrencyPicker.newInstance("Select Currency");  // dialog title
+                picker.setListener(new CurrencyPickerListener() {
+                    @Override
+                    public void onSelectCurrency(String name, String code, String symbol, int flagDrawableResID) {
+                        // Implement your code here
+                    }
+                });
+                picker.show(getSupportFragmentManager(), "CURRENCY_PICKER");
             }
         });
     }

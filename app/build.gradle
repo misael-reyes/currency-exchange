@@ -50,4 +50,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+    // Currency picker
+    implementation 'com.github.midorikocak:currency-picker-android:1.2.1'
 }
