@@ -112,7 +112,9 @@ public class HomeActivity extends AppCompatActivity {
                         currencyPais1.setSymbol(symbol);
                         currencyPais1.setFlag(flagDrawableResID);
 
-                        configurationBtnPais1(code, flagDrawableResID);
+                        viewModel.setFlag1(currencyPais1);
+
+                        //configurationBtnPais1(code, flagDrawableResID);
                         picker.dismiss();
                     }
                 });
@@ -134,7 +136,8 @@ public class HomeActivity extends AppCompatActivity {
                         currencyPais2.setSymbol(symbol);
                         currencyPais2.setFlag(flagDrawableResID);
 
-                        configurationBtnPais2(code, flagDrawableResID);
+                        viewModel.setFlag2(currencyPais2);
+                        //configurationBtnPais2(code, flagDrawableResID);
                         picker.dismiss();
                     }
                 });
@@ -146,18 +149,28 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 revertCountry();
+                //viewModel.revertCountry(currencyPais1, currencyPais2);
             }
         });
     }
 
     private void revertCountry() {
-        if (currencyPais1 == null)
+        if (currencyPais1 == null) {
+            System.out.println("currency pais 1 es null");
             currencyPais1 = ExtendedCurrency.getCurrencyByName("Mexico Peso");
-        if(currencyPais2 == null)
+        }
+        if(currencyPais2 == null) {
+            System.out.println("currency pais 2 es null");
             currencyPais2 = ExtendedCurrency.getCurrencyByName("United States Dollar");
+        }
+
+//        currencyPais1 = viewModel.getFlag1().getValue();
+//        currencyPais2 = viewModel.getFlag2().getValue();
 
         configurationBtnPais1(currencyPais2.getCode(), currencyPais2.getFlag());
         configurationBtnPais2(currencyPais1.getCode(), currencyPais1.getFlag());
+//        viewModel.setFlag1(currencyPais2);
+//        viewModel.setFlag2(currencyPais1);
 
         ExtendedCurrency aux = currencyPais2;
         currencyPais2 = currencyPais1;
@@ -175,8 +188,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initObserver() {
-        viewModel.getMausan().observe(this, contador -> {
-            Toast.makeText(HomeActivity.this, "el contador esta en "+contador, Toast.LENGTH_SHORT).show();
+        viewModel.getFlag1().observe(this, flag1 -> {
+            configurationBtnPais1(flag1.getCode(), flag1.getFlag());
+            currencyPais1 = flag1;
+        });
+
+        viewModel.getFlag2().observe(this, flag2 -> {
+            configurationBtnPais2(flag2.getCode(), flag2.getFlag());
+            currencyPais2 = flag2;
         });
     }
 
