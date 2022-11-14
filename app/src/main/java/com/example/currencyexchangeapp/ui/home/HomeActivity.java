@@ -164,13 +164,8 @@ public class HomeActivity extends AppCompatActivity {
             currencyPais2 = ExtendedCurrency.getCurrencyByName("United States Dollar");
         }
 
-//        currencyPais1 = viewModel.getFlag1().getValue();
-//        currencyPais2 = viewModel.getFlag2().getValue();
-
         configurationBtnPais1(currencyPais2.getCode(), currencyPais2.getFlag());
         configurationBtnPais2(currencyPais1.getCode(), currencyPais1.getFlag());
-//        viewModel.setFlag1(currencyPais2);
-//        viewModel.setFlag2(currencyPais1);
 
         ExtendedCurrency aux = currencyPais2;
         currencyPais2 = currencyPais1;

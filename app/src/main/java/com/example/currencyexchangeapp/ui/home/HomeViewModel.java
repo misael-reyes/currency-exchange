@@ -32,8 +32,4 @@ public class HomeViewModel extends ViewModel {
         this.flag2.setValue(flag2);
     }
 
-    public void revertCountry(ExtendedCurrency flag1, ExtendedCurrency flag2) {
-        this.flag1.setValue(flag1);
-        this.flag2.setValue(flag2);
-    }
 }
