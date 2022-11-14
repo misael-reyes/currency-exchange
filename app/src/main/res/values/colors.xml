@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="splash_screen">#58D15D</color>
+    <color name="hint_color">#B8B8B8</color>
     
     <!-- colores claros -->
     <color name="green_light">#D3F36B</color>
