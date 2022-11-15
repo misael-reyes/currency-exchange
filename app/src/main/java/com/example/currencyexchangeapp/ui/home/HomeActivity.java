@@ -30,6 +30,7 @@ import com.mynameismidori.currencypicker.ExtendedCurrency;
 public class HomeActivity extends AppCompatActivity {
 
     private ExtendedCurrency currencyPais1, currencyPais2;
+    private String rate1, rate2;
 
     // esto es para el viewBinding
     private ActivityHomeBinding binding;
@@ -82,6 +83,8 @@ public class HomeActivity extends AppCompatActivity {
 
         currencyPais1 = ExtendedCurrency.getCurrencyByName("Mexico Peso");
         currencyPais2 = ExtendedCurrency.getCurrencyByName("United States Dollar");
+        rate1 = "0";
+        rate2 = "0";
 
     }
 
@@ -150,6 +153,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 revertCountry();
+                revertRates();
             }
         });
 
@@ -182,6 +186,21 @@ public class HomeActivity extends AppCompatActivity {
         ExtendedCurrency aux = currencyPais2;
         currencyPais2 = currencyPais1;
         currencyPais1 = aux;
+    }
+
+    private void revertRates(){
+        rate1 = String.valueOf(binding.inputAmount.getText());
+        rate2 = (String) binding.etValor2.getText();
+
+        if (rate2.equals("0"))
+            return;
+
+        binding.inputAmount.setText(rate2);
+        binding.etValor2.setText(rate1);
+
+        String aux = rate2;
+        rate2 = rate1;
+        rate1 = aux;
     }
 
     private void configurationBtnPais1(String code, int flag) {
@@ -224,7 +243,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setDayNight() {
         // necesitamos obtener la configuracion en un archivo clave-valor
 
-        int theme = sp.getInt("Theme", 1);
+        int theme = sp.getInt("Theme", 0);
 
         if(theme == 0) {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES); // dark
