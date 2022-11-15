@@ -117,7 +117,6 @@ public class HomeActivity extends AppCompatActivity {
 
                         viewModel.setFlag1(currencyPais1);
 
-                        //configurationBtnPais1(code, flagDrawableResID);
                         picker.dismiss();
                     }
                 });
@@ -140,7 +139,6 @@ public class HomeActivity extends AppCompatActivity {
                         currencyPais2.setFlag(flagDrawableResID);
 
                         viewModel.setFlag2(currencyPais2);
-                        //configurationBtnPais2(code, flagDrawableResID);
                         picker.dismiss();
                     }
                 });
@@ -152,7 +150,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 revertCountry();
-                //viewModel.revertCountry(currencyPais1, currencyPais2);
             }
         });
 
@@ -168,20 +165,16 @@ public class HomeActivity extends AppCompatActivity {
                     from = currencyPais1.getCode();
                     to = currencyPais2.getCode();
                 }
-                viewModel.converterCurrency(from, to, mount, "json");
+                /**
+                 * por el momento esta comentado la siguiente linea de código con la finalidad
+                 * de no hacer más peticiones a la api mientras hacemos pruebas
+                 */
+                // viewModel.converterCurrency(from, to, mount, "json");
             }
         });
     }
 
     private void revertCountry() {
-//        if (currencyPais1 == null) {
-//            System.out.println("currency pais 1 es null");
-//            currencyPais1 = ExtendedCurrency.getCurrencyByName("Mexico Peso");
-//        }
-//        if(currencyPais2 == null) {
-//            System.out.println("currency pais 2 es null");
-//            currencyPais2 = ExtendedCurrency.getCurrencyByName("United States Dollar");
-//        }
 
         configurationBtnPais1(currencyPais2.getCode(), currencyPais2.getFlag());
         configurationBtnPais2(currencyPais1.getCode(), currencyPais1.getFlag());
