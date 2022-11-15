@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 public interface ApiClient {
 
     @GET("convert")
-    Call<CurrencyConversion> convertCurrency(
+    Call<String> convertCurrency(
             @Query("api_key") String api_key,
             @Query("from") String from,
             @Query("to") String to,

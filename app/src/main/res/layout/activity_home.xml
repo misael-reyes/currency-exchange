@@ -99,7 +99,7 @@
                 android:hint="Amount" >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_name_client"
+                    android:id="@+id/input_amount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/black_light"

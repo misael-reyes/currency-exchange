@@ -14,7 +14,7 @@ public class CurrencyConversionRepository {
      * ********************** PETICIONES A LA API CURRENCY *************
      */
 
-    public Call<CurrencyConversion> convertCurrencyFromApi(String api_key, String from, String to, Double amount) {
+    public Call<String> convertCurrencyFromApi(String api_key, String from, String to, Double amount) {
         return apiClient.convertCurrency(api_key, from, to, amount);
     }
 }

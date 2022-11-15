@@ -1,6 +1,8 @@
 package com.example.currencyexchangeapp.ui.home;
 
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,6 +11,11 @@ import com.example.currencyexchangeapp.data.model.CurrencyConversion;
 import com.example.currencyexchangeapp.data.repository.CurrencyConversionRepository;
 import com.example.currencyexchangeapp.utils.Constants;
 import com.mynameismidori.currencypicker.ExtendedCurrency;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +44,12 @@ public class HomeViewModel extends ViewModel {
         return flag2;
     }
 
+    private MutableLiveData<CurrencyConversion> conversion;
+    public LiveData<CurrencyConversion> getConversion() {
+        if (conversion == null) conversion = new MutableLiveData<>();
+        return conversion;
+    }
+
     public void setFlag1(ExtendedCurrency flag1) {
         this.flag1.setValue(flag1);
     }
@@ -46,22 +59,42 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void converterCurrency(String from, String to, Double amount) {
-        Call<CurrencyConversion>  call = conversionRepository.convertCurrencyFromApi(
+        Call<String> call = conversionRepository.convertCurrencyFromApi(
                 Constants.API_KEY,
                 from,
                 to,
                 amount
         );
 
-        call.enqueue(new Callback<CurrencyConversion>() {
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<CurrencyConversion> call, Response<CurrencyConversion> response) {
-                //
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    // your code
+                    //conversion.setValue(response.body());
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body());
+                        JSONObject job = jsonObject.getJSONObject("rates");
+                        JSONObject jsonObject1 = job.getJSONObject("USD");
+                        String amount = jsonObject1.getString("rate_for_amount");
+                        System.out.println("el monto es "+amount);
+
+//                        JSONObject jsonObject = new JSONObject(response.body());
+//                        JSONArray job = jsonObject.getJSONArray("rates");
+//                        JSONObject jsonObject1 = job.getJSONObject(0);
+//                        String amount = jsonObject1.getString("rate_for_amount");
+//                        System.out.println("el monto es "+amount);
+                    } catch (Exception e) {
+                        System.out.println("hubo un error "+e.getMessage());
+                    }
+                    //Log.i("response", response.body());
+                }
             }
 
             @Override
-            public void onFailure(Call<CurrencyConversion> call, Throwable t) {
-                //
+            public void onFailure(Call<String> call, Throwable t) {
+                // error in the request
             }
         });
     }

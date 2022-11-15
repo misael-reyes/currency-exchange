@@ -80,6 +80,9 @@ public class HomeActivity extends AppCompatActivity {
 
         setFlagDefault();
 
+        currencyPais1 = ExtendedCurrency.getCurrencyByName("Mexico Peso");
+        currencyPais2 = ExtendedCurrency.getCurrencyByName("United States Dollar");
+
     }
 
     @SuppressLint("ResourceType")
@@ -152,17 +155,33 @@ public class HomeActivity extends AppCompatActivity {
                 //viewModel.revertCountry(currencyPais1, currencyPais2);
             }
         });
+
+        binding.btnConvert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                double mount = 0.0;
+                String from = "";
+                String to = "";
+                String mountString = binding.inputAmount.getText().toString();
+                if (!mountString.isEmpty()) {
+                    mount = Double.parseDouble(mountString);
+                    from = currencyPais1.getCode();
+                    to = currencyPais2.getCode();
+                }
+                viewModel.converterCurrency(from, to, mount);
+            }
+        });
     }
 
     private void revertCountry() {
-        if (currencyPais1 == null) {
-            System.out.println("currency pais 1 es null");
-            currencyPais1 = ExtendedCurrency.getCurrencyByName("Mexico Peso");
-        }
-        if(currencyPais2 == null) {
-            System.out.println("currency pais 2 es null");
-            currencyPais2 = ExtendedCurrency.getCurrencyByName("United States Dollar");
-        }
+//        if (currencyPais1 == null) {
+//            System.out.println("currency pais 1 es null");
+//            currencyPais1 = ExtendedCurrency.getCurrencyByName("Mexico Peso");
+//        }
+//        if(currencyPais2 == null) {
+//            System.out.println("currency pais 2 es null");
+//            currencyPais2 = ExtendedCurrency.getCurrencyByName("United States Dollar");
+//        }
 
         configurationBtnPais1(currencyPais2.getCode(), currencyPais2.getFlag());
         configurationBtnPais2(currencyPais1.getCode(), currencyPais1.getFlag());
@@ -182,6 +201,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.btnPais2.setIconResource(flag);
     }
 
+    @SuppressLint("SetTextI18n")
     private void initObserver() {
         viewModel.getFlag1().observe(this, flag1 -> {
             configurationBtnPais1(flag1.getCode(), flag1.getFlag());
@@ -191,6 +211,10 @@ public class HomeActivity extends AppCompatActivity {
         viewModel.getFlag2().observe(this, flag2 -> {
             configurationBtnPais2(flag2.getCode(), flag2.getFlag());
             currencyPais2 = flag2;
+        });
+
+        viewModel.getConversion().observe(this, conversion -> {
+            binding.etValor2.setText(conversion.getRates().getRate_for_amount().toString());
         });
     }
 
