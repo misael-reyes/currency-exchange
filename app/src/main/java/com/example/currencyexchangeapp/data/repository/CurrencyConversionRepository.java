@@ -1,6 +1,6 @@
 package com.example.currencyexchangeapp.data.repository;
 
-import com.example.currencyexchangeapp.data.model.CurrencyConversion;
+import com.example.currencyexchangeapp.data.model.ApiResponse;
 import com.example.currencyexchangeapp.data.network.ApiClient;
 import com.example.currencyexchangeapp.data.network.RetrofitHelper;
 
@@ -14,7 +14,11 @@ public class CurrencyConversionRepository {
      * ********************** PETICIONES A LA API CURRENCY *************
      */
 
-    public Call<String> convertCurrencyFromApi(String api_key, String from, String to, Double amount) {
-        return apiClient.convertCurrency(api_key, from, to, amount);
+    /*public Call<ApiResponse> convertCurrencyFromApi(ApiBody body) {
+        return apiClient.convertCurrency(body);
+    }*/
+
+    public Call<ApiResponse> convertCurrencyFromApi(String api_key, String from, String to, Double amount, String format) {
+        return apiClient.convertCurrency(api_key, from, to, amount, format);
     }
 }

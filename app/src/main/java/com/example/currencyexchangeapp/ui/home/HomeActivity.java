@@ -168,7 +168,7 @@ public class HomeActivity extends AppCompatActivity {
                     from = currencyPais1.getCode();
                     to = currencyPais2.getCode();
                 }
-                viewModel.converterCurrency(from, to, mount);
+                viewModel.converterCurrency(from, to, mount, "json");
             }
         });
     }
@@ -213,9 +213,13 @@ public class HomeActivity extends AppCompatActivity {
             currencyPais2 = flag2;
         });
 
-        viewModel.getConversion().observe(this, conversion -> {
-            binding.etValor2.setText(conversion.getRates().getRate_for_amount().toString());
+        viewModel.getRateC().observe(this, rate -> {
+            binding.etValor2.setText(rate.getRate_for_amount());
         });
+
+       /*viewModel.getConversion().observe(this, conversion -> {
+            binding.etValor2.setText(conversion.getRates().getRate_for_amount().toString());
+        });*/
     }
 
     private void updateTheme(int num_theme) {

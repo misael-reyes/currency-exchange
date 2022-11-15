@@ -2,12 +2,15 @@ package com.example.currencyexchangeapp.data.model;
 
 public class Rate {
 
-    // properties
+    public String currency_name;
+    public String rate;
+    public String rate_for_amount;
 
-    private String currency_name;
-    private Double rate, rate_for_amount;
-
-    // setters and getters
+    public Rate(String currency_name, String rate, String rate_for_amount) {
+        this.currency_name = currency_name;
+        this.rate = rate;
+        this.rate_for_amount = rate_for_amount;
+    }
 
     public String getCurrency_name() {
         return currency_name;
@@ -17,19 +20,19 @@ public class Rate {
         this.currency_name = currency_name;
     }
 
-    public Double getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(Double rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 
-    public Double getRate_for_amount() {
+    public String getRate_for_amount() {
         return rate_for_amount;
     }
 
-    public void setRate_for_amount(Double rate_for_amount) {
+    public void setRate_for_amount(String rate_for_amount) {
         this.rate_for_amount = rate_for_amount;
     }
 }
