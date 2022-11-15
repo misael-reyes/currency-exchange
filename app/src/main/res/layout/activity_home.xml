@@ -88,39 +88,28 @@
             android:paddingVertical="25dp"
             android:gravity="center">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/input_amount"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                app:boxBackgroundColor="@color/white"
-                app:boxStrokeColor="?attr/colorSecondary"
-                android:textColorHint="@color/hint_color"
-                android:layout_marginEnd="5dp"
-                android:hint="Amount" >
+                android:background="@drawable/background_textview"
+                android:layout_marginEnd="10dp"
+                android:textSize="22sp"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:autofillHints=""
+                android:hint="@string/hint_input"
+                android:textColor="?attr/colorOnSecondary"
+                tools:ignore="LabelFor" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_amount"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/black_light"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:inputType="number"
-                    />
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.button.MaterialButton
+            <ImageButton
                 android:id="@+id/btn_convert"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginHorizontal="5dp"
-                android:contentDescription="Convertir"
-                android:backgroundTint="?attr/colorOnPrimary"
-                app:icon="@drawable/ic_arrow_right"
-                app:iconGravity="textEnd"
-                app:iconSize="60dp"
-                app:iconTint="?attr/colorOnSecondary" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_arrow_ios"
+                android:backgroundTint="?attr/colorOnSecondary"
+                android:contentDescription="@string/material_motion_easing_decelerated" />
 
             <TextView
                 android:id="@+id/et_valor2"
@@ -128,15 +117,13 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_textview"
                 android:text="0"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:textAlignment="center"
                 android:textColor="?attr/colorPrimaryVariant"
                 android:backgroundTint="?attr/colorSecondary"
-                android:textSize="24sp"
-                android:textStyle="bold"
+                android:textSize="22sp"
                 android:autofillHints=""
-                android:inputType="numberDecimal"
-                tools:ignore="LabelFor"/>
+                tools:ignore="LabelFor,TextViewEdits"/>
 
         </LinearLayout>
 
