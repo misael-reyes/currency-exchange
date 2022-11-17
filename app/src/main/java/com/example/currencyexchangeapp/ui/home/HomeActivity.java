@@ -188,8 +188,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private void revertCountry() {
 
-        configurationBtnPais1(currencyPais2.getCode(), currencyPais2.getFlag());
-        configurationBtnPais2(currencyPais1.getCode(), currencyPais1.getFlag());
+        drawBtnPais1(currencyPais2.getCode(), currencyPais2.getFlag());
+        drawBtnPais2(currencyPais1.getCode(), currencyPais1.getFlag());
 
         ExtendedCurrency aux = currencyPais2;
         currencyPais2 = currencyPais1;
@@ -211,12 +211,12 @@ public class HomeActivity extends AppCompatActivity {
         rate1 = aux;
     }
 
-    private void configurationBtnPais1(String code, int flag) {
+    private void drawBtnPais1(String code, int flag) {
         binding.btnPais1.setText(code);
         binding.btnPais1.setIconResource(flag);
     }
 
-    private void configurationBtnPais2(String code, int flag) {
+    private void drawBtnPais2(String code, int flag) {
         binding.btnPais2.setText(code);
         binding.btnPais2.setIconResource(flag);
     }
@@ -224,12 +224,12 @@ public class HomeActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void initObserver() {
         viewModel.getFlag1().observe(this, flag1 -> {
-            configurationBtnPais1(flag1.getCode(), flag1.getFlag());
+            drawBtnPais1(flag1.getCode(), flag1.getFlag());
             currencyPais1 = flag1;
         });
 
         viewModel.getFlag2().observe(this, flag2 -> {
-            configurationBtnPais2(flag2.getCode(), flag2.getFlag());
+            drawBtnPais2(flag2.getCode(), flag2.getFlag());
             currencyPais2 = flag2;
         });
 
