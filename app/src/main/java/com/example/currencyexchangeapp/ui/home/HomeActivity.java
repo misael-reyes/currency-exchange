@@ -1,5 +1,7 @@
 package com.example.currencyexchangeapp.ui.home;
 
+import static java.util.Objects.*;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +21,19 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.currencyexchangeapp.R;
 //import com.example.currencyexchangeapp.databinding.ActivityHomeBinding;
+import com.example.currencyexchangeapp.data.model.Rate;
 import com.example.currencyexchangeapp.databinding.ActivityHomeBinding;
+import com.example.currencyexchangeapp.ui.common.CurrencyAdapter;
 import com.mynameismidori.currencypicker.CurrencyPicker;
 import com.mynameismidori.currencypicker.CurrencyPickerListener;
 import com.mynameismidori.currencypicker.ExtendedCurrency;
+
+import java.util.List;
+import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -165,11 +173,11 @@ public class HomeActivity extends AppCompatActivity {
                     from = currencyPais1.getCode();
                     to = currencyPais2.getCode();
                 }
-                /**
-                 * por el momento esta comentado la siguiente linea de código con la finalidad
-                 * de no hacer más peticiones a la api mientras hacemos pruebas
-                 */
-                // viewModel.converterCurrency(from, to, mount, "json");
+
+                // convertimos nuestra divisa a la moneda seleccionada
+                viewModel.converterCurrency(from, to, mount, "json");
+                // consultamos el tipo de cambio de all las divisas
+                viewModel.getAllRates(from, mount, "json");
             }
         });
     }
@@ -210,6 +218,8 @@ public class HomeActivity extends AppCompatActivity {
             binding.etValor2.setText(rate.getRate_for_amount());
         });
 
+        viewModel.getRates().observe(this, this::initRecyclerView);
+
        /*viewModel.getConversion().observe(this, conversion -> {
             binding.etValor2.setText(conversion.getRates().getRate_for_amount().toString());
         });*/
@@ -233,5 +243,23 @@ public class HomeActivity extends AppCompatActivity {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO); // light
             binding.switchTheme.setChecked(false);
         }
+    }
+
+    /**
+     * método para inicializar el recycler view cada que se muestre esta vista
+     * @param lista
+     */
+    private void initRecyclerView(List<Rate> lista) {
+        // colocamos un layout, en este caso el layout es lineal
+        binding.currencyRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        // asignamos un adaptador al recycler view
+        binding.currencyRecyclerView.setAdapter(new CurrencyAdapter(lista));
+    }
+
+    /**
+     * método para recuperar el item seleccionado del recycler view por el usuario
+     */
+    private void onItemSelected(Rate rate) {
+        // logica al momento de dar clic a uno de los item del recycler view
     }
 }

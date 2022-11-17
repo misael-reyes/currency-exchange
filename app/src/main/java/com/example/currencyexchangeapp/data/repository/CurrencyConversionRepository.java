@@ -21,4 +21,8 @@ public class CurrencyConversionRepository {
     public Call<ApiResponse> convertCurrencyFromApi(String api_key, String from, String to, Double amount, String format) {
         return apiClient.convertCurrency(api_key, from, to, amount, format);
     }
+
+    public Call<ApiResponse> convertInAllCurrenciesFromApi(String api_key, String from, Double amount, String format) {
+        return apiClient.convertInAllCurrencies(api_key, from, amount, format);
+    }
 }

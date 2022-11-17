@@ -15,6 +15,9 @@ import com.example.currencyexchangeapp.data.repository.CurrencyConversionReposit
 import com.example.currencyexchangeapp.utils.Constants;
 import com.mynameismidori.currencypicker.ExtendedCurrency;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +50,14 @@ public class HomeViewModel extends ViewModel {
         if (rateC == null)
             rateC = new MutableLiveData<>();
         return rateC;
+    }
+
+    // objeto para recibir la listas de las tarifas que debemos mostrar en el recycler view
+    private MutableLiveData<List<Rate>> rates;
+    public LiveData<List<Rate>> getRates() {
+        if (rates == null)
+            rates = new MutableLiveData<>();
+        return rates;
     }
 
     /*private MutableLiveData<CurrencyConversion> conversion;
@@ -91,9 +102,58 @@ public class HomeViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-
+                Log.i("errorinrequest", "lanzo este este error: "+t.getMessage());
             }
         });
     }
 
+    /**
+     * convertimos el monto de la divisa fuente a todas las demás divisas
+     *
+     * @param from
+     * @param amount
+     * @param format
+     */
+    public void getAllRates(String from, Double amount, String format) {
+
+        Call<ApiResponse> call = conversionRepository.convertInAllCurrenciesFromApi(
+                Constants.API_KEY,
+                from,
+                amount,
+                format
+        );
+
+        call.enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if (response.isSuccessful()) {
+
+                    ArrayList<Rate> finalRates = new ArrayList<>();
+                    List<ExtendedCurrency> currencies = ExtendedCurrency.getAllCurrencies();
+                    /**
+                     * antes de mandar la lista al recycler view, primero tenemos que añadirles el
+                     * id de las banderas de las divisas que estan dentro de la lista
+                     * y además tenemos que quitar aquellas divisas que nuestro picker no soporta
+                     */
+
+                    for (int i = 0; i < currencies.size(); i ++) {
+                        String code = currencies.get(i).getCode();
+                        assert response.body() != null;
+                        Rate rate_list = response.body().getRates().get(code);
+                        if (rate_list != null) {
+                            finalRates.add(new Rate(currencies.get(i).getName(), rate_list.getRate(), rate_list.getRate_for_amount(), currencies.get(i).getCode(), currencies.get(i).getFlag()));
+                        }
+                    }
+                    rates.setValue(finalRates);
+                } else {
+                    Log.i("errorinrequest", "response no fue satisfactoria");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                Log.i("errorinrequest", "lanzo este este error: "+t.getMessage());
+            }
+        });
+    }
 }
