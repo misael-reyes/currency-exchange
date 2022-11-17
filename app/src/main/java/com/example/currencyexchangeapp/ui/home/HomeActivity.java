@@ -176,12 +176,14 @@ public class HomeActivity extends AppCompatActivity {
                     mount = Double.parseDouble(mountString);
                     from = currencyPais1.getCode();
                     to = currencyPais2.getCode();
-                }
 
-                // convertimos nuestra divisa a la moneda seleccionada
-                viewModel.converterCurrency(from, to, mount, "json");
-                // consultamos el tipo de cambio de all las divisas
-                viewModel.getAllRates(from, mount, "json");
+                    // convertimos nuestra divisa a la moneda seleccionada
+                    viewModel.converterCurrency(from, to, mount, "json");
+                    // consultamos el tipo de cambio de all las divisas
+                    viewModel.getAllRates(from, mount, "json");
+                } else {
+                    Toast.makeText(getBaseContext(), "Ingrese un monto", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
