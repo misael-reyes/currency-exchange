@@ -1,29 +1,20 @@
 package com.example.currencyexchangeapp.ui.home;
 
-import static java.util.Objects.*;
-
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.currencyexchangeapp.R;
 //import com.example.currencyexchangeapp.databinding.ActivityHomeBinding;
 import com.example.currencyexchangeapp.data.model.Rate;
 import com.example.currencyexchangeapp.databinding.ActivityHomeBinding;
@@ -33,7 +24,7 @@ import com.mynameismidori.currencypicker.CurrencyPickerListener;
 import com.mynameismidori.currencypicker.ExtendedCurrency;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.function.Function;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -274,7 +265,15 @@ public class HomeActivity extends AppCompatActivity {
         // colocamos un layout, en este caso el layout es lineal
         binding.currencyRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         // asignamos un adaptador al recycler view
-        binding.currencyRecyclerView.setAdapter(new CurrencyAdapter(lista));
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            binding.currencyRecyclerView.setAdapter(new CurrencyAdapter(lista, new Function<Rate, Void>() {
+                @Override
+                public Void apply(Rate rate) {
+                    onItemSelected(rate);
+                    return null;
+                }
+            }));
+        }
     }
 
     /**
@@ -282,5 +281,6 @@ public class HomeActivity extends AppCompatActivity {
      */
     private void onItemSelected(Rate rate) {
         // logica al momento de dar clic a uno de los item del recycler view
+        Toast.makeText(getBaseContext(), "se preciono "+rate.getCurrency_name(), Toast.LENGTH_SHORT).show();
     }
 }
