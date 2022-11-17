@@ -21,6 +21,14 @@ public interface ApiClient {
             @Query("format") String format
     );
 
+    @GET("convert")
+    Call<ApiResponse> convertInAllCurrencies(
+            @Query("api_key") String api_key,
+            @Query("from") String from,
+            @Query("amount") Double amount,
+            @Query("format") String format
+    );
+
     /*@GET("convert")
     Call<ApiResponse> convertCurrency(@Body ApiBody body);*/
 }
