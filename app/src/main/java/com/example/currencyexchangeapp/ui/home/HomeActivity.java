@@ -200,15 +200,15 @@ public class HomeActivity extends AppCompatActivity {
         rate1 = String.valueOf(binding.inputAmount.getText());
         rate2 = (String) binding.etValor2.getText();
 
-        if (rate2.equals("0"))
+        if (rate2.equals("0") || rate1.isEmpty())
             return;
 
-        binding.inputAmount.setText(rate2);
-        binding.etValor2.setText(rate1);
+        String from = currencyPais1.getCode();
+        String to = currencyPais2.getCode();
+        double newMount = Double.parseDouble(rate1);
 
-        String aux = rate2;
-        rate2 = rate1;
-        rate1 = aux;
+        viewModel.converterCurrency(from, to, newMount, "json");
+        viewModel.getAllRates(from, newMount, "json");
     }
 
     private void drawBtnPais1(String code, int flag) {
