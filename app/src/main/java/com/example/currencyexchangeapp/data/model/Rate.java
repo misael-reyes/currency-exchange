@@ -1,5 +1,7 @@
 package com.example.currencyexchangeapp.data.model;
 
+import com.example.currencyexchangeapp.data.database.entities.RateEntity;
+
 public class Rate {
 
     public String currency_name;
@@ -60,5 +62,14 @@ public class Rate {
 
     public void setRate_for_amount(String rate_for_amount) {
         this.rate_for_amount = rate_for_amount;
+    }
+
+    public RateEntity toRateEntity() {
+        return new RateEntity(
+                code,
+                currency_name,
+                flag,
+                rate_for_amount
+        );
     }
 }

@@ -171,7 +171,7 @@ public class HomeActivity extends AppCompatActivity {
                     // convertimos nuestra divisa a la moneda seleccionada
                     viewModel.converterCurrency(from, to, mount, "json");
                     // consultamos el tipo de cambio de all las divisas
-                    viewModel.getAllRates(from, mount, "json");
+                    viewModel.getAllRates(from, to, mount, "json", getBaseContext());
                 } else {
                     Toast.makeText(getBaseContext(), "Ingrese un monto", Toast.LENGTH_SHORT).show();
                 }
@@ -201,7 +201,7 @@ public class HomeActivity extends AppCompatActivity {
         double newMount = Double.parseDouble(rate1);
 
         viewModel.converterCurrency(from, to, newMount, "json");
-        viewModel.getAllRates(from, newMount, "json");
+        viewModel.getAllRates(from, to, newMount, "json", getBaseContext());
     }
 
     private void drawBtnPais1(String code, int flag) {
